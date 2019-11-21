@@ -1,0 +1,19 @@
+<div class="card d-flex flex-column shadow" style="width: 100%; min-height: 15em;">
+  <img [src]="cliente.urlLogo" style="max-width: 150px;" class="card-img-top mx-auto" alt="...">
+  <div class="card-body d-flex flex-column">
+    <h5 class="card-title text-center">{{cliente.denominazione}}</h5>
+    <p class=" card-text text-center">Partita iva {{cliente.pIva}}</p>
+    <div class="d-flex p-2">
+      <div class="px-2 py-2" style="flex:1;">
+        <h5 class="text-center">{{cliente.totaleFattura|currency:'EUR'}}</h5>
+        <p class="text-center">Totale fatture</p>
+      </div>
+      <div style="border: 1px solid rgba(0, 0, 0, 0.125);"></div>
+      <div class="px-2 py-2" style="flex:1;">
+        <h5 class="text-center">{{cliente.numeroFatture}}</h5>
+        <p class="text-center">Numero fatture</p>
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="toggle()">Visualizza profilo</button>
+  </div>
+</div>
