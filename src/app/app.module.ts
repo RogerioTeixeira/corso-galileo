@@ -10,14 +10,16 @@ import { LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms'
 import localeIt from '@angular/common/locales/it';
 import { registerLocaleData } from '@angular/common';
-registerLocaleData(localeIt, 'it-IT')
+import { DettaglioClienteComponent } from './dettaglio-cliente/dettaglio-cliente.component';
+registerLocaleData(localeIt, 'it-IT');
 
 @NgModule({
   declarations: [
     AppComponent,
     ClienteComponent,
     FattureComponent,
-    CardClienteComponent
+    CardClienteComponent,
+    DettaglioClienteComponent
   ],
   imports: [
     BrowserModule,

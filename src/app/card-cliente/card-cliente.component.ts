@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Cliente } from '../model/cliente.model';
+
 
 @Component({
   selector: 'app-card-cliente',
@@ -8,8 +9,13 @@ import { Cliente } from '../model/cliente.model';
 })
 export class CardClienteComponent implements OnInit {
   @Input()
-  public cliente: Cliente
-  public test: Date = new Date();
+  public cliente: Cliente;
+
+  @Output()
+  public onDelete: EventEmitter<Cliente> = new EventEmitter<Cliente>();
+
+  @Output()
+  public onSelect: EventEmitter<Cliente> = new EventEmitter<Cliente>();
 
   public isVisible: boolean = true;
 
@@ -18,6 +24,13 @@ export class CardClienteComponent implements OnInit {
   ngOnInit() {
   }
 
+  delete() {
+    this.onDelete.emit(this.cliente);
+  }
+
+  select() {
+    this.onSelect.emit(this.cliente);
+  }
 
   toggle() {
     this.isVisible = !this.isVisible;

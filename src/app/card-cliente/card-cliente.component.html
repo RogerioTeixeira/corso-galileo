@@ -5,7 +5,7 @@
     <p class=" card-text text-center">Partita iva {{cliente.pIva}}</p>
     <div class="d-flex p-2">
       <div class="px-2 py-2" style="flex:1;">
-        <h5 class="text-center">{{cliente.totaleFattura|currency:'EUR'}}</h5>
+        <h5 class="text-center">{{cliente.totaleFatture|currency:'EUR'}}</h5>
         <p class="text-center">Totale fatture</p>
       </div>
       <div style="border: 1px solid rgba(0, 0, 0, 0.125);"></div>
@@ -14,6 +14,10 @@
         <p class="text-center">Numero fatture</p>
       </div>
     </div>
-    <button class="btn btn-primary" (click)="toggle()">Visualizza profilo</button>
+    <div class="d-flex mt-2">
+      <button class="btn btn-primary mr-1" style="flex:1" (click)="delete()">Elimina</button>
+      <button class="btn btn-primary" style="flex:1" (click)="select()">Dettaglio</button>
+    </div>
+
   </div>
 </div>

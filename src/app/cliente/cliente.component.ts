@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from '../model/cliente.model';
+import { ClienteService } from '../services/cliente.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cliente',
@@ -8,22 +10,25 @@ import { Cliente } from '../model/cliente.model';
 })
 export class ClienteComponent implements OnInit {
   public clienti: Array<Cliente> = new Array<Cliente>();
-  public clientiFiltered: Array<Cliente> = new Array<Cliente>();
-  public search: String;
-  constructor() { }
+  public filter: string;
+  constructor(public clienteService: ClienteService, private router: Router) { }
 
   ngOnInit() {
-    console.log(this.clientiFiltered);
-    this.clienti.push(new Cliente("Apple", "assets/images/apple.png", 123458747, 50000, 4))
-    this.clienti.push(new Cliente("Google", "assets/images/google.png", 784512477, 1522437, 150))
-    this.clienti.push(new Cliente("Ibm", "assets/images/ibm.png", 884587177, 2581437, 120))
-    this.clienti.push(new Cliente("Shell", "assets/images/shell.png", 7841587177, 3547896, 320))
-    this.clienti.push(new Cliente("Toyota", "assets/images/toyota.png", 7841587177, 447896, 320))
-    this.clientiFiltered = [...this.clienti]
-    console.log(this.clientiFiltered)
+    this.clienteService.load();
+    this.clienti = this.clienteService.getAll();
   }
-  modifica(evento: any) {
-    this.clientiFiltered = this.clienti.filter((item: Cliente) => item.denominazione.toLowerCase().includes(evento.toLowerCase()))
 
+  delete(cliente: Cliente) {
+    this.clienteService.delete(cliente);
+    this.clienti = this.clienteService.getAll();
   }
+
+  filtra(filtro: string) {
+    this.clienti = this.clienteService.filterLike(filtro);
+  }
+
+  select(cliente: Cliente) {
+    this.router.navigate(['cliente', cliente.pIva]);
+  }
+
 }
