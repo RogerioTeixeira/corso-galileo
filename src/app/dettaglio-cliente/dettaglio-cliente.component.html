@@ -1,2 +1,77 @@
-<p>partita iva:{{cliente.pIva}}</p>
-<img [src]="cliente.urlLogo" />
+<div class="row mt-3" *ngIf="cliente">
+
+  <div class="col-4">
+    <div class="card shadow">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <img [src]="cliente.urlLogo" class="img-fluid img-thumbnail" />
+          </div>
+          <div class="col-12">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td class="border-0">
+                    <strong>Denominazione</strong>
+                  </td>
+                  <td class="border-0">{{cliente.name}}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Partita iva</strong>
+                  </td>
+                  <td>{{cliente.codeIva}}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Paese</strong>
+                  </td>
+
+                  <td>{{cliente.country}}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Città</strong>
+                  </td>
+                  <td>{{cliente.city}}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Indirizzo</strong>
+                  </td>
+                  <td>{{cliente.address}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-8">
+    <div class="card shadow h-100">
+      <div class="card-body">
+        <table class="table">
+          <thead class="thead-dark" class="text-right">
+            <tr>
+              <th scope="col">Numero fattura</th>
+              <th scope="col">Data fattura</th>
+              <th scope="col">Importo netto</th>
+              <th scope="col">Importo Iva</th>
+              <th scope="col">Importo Totale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let fattura of cliente?.invoices" class="text-right">
+              <th scope="row">{{fattura.id}}</th>
+              <td>{{fattura.month}}/{{fattura.year}}</td>
+              <td>{{fattura.netAmount|currency:"EUR"}}</td>
+              <td>{{fattura.ivaAmount|currency:"EUR"}}</td>
+              <td>{{fattura.netAmount + fattura.ivaAmount|currency:"EUR"}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,6 +10,7 @@ import { LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms'
 import localeIt from '@angular/common/locales/it';
 import { registerLocaleData } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { DettaglioClienteComponent } from './dettaglio-cliente/dettaglio-cliente.component';
 registerLocaleData(localeIt, 'it-IT');
 
@@ -19,12 +20,14 @@ registerLocaleData(localeIt, 'it-IT');
     ClienteComponent,
     FattureComponent,
     CardClienteComponent,
-    DettaglioClienteComponent
+    DettaglioClienteComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'it-IT' }

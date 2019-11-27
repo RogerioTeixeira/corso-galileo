@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Cliente } from '../model/cliente.model';
+import { Customer } from '../model/customer.model';
 
 
 @Component({
@@ -9,13 +9,13 @@ import { Cliente } from '../model/cliente.model';
 })
 export class CardClienteComponent implements OnInit {
   @Input()
-  public cliente: Cliente;
+  public cliente: Customer;
 
   @Output()
-  public onDelete: EventEmitter<Cliente> = new EventEmitter<Cliente>();
+  public onDelete: EventEmitter<Customer> = new EventEmitter<Customer>();
 
   @Output()
-  public onSelect: EventEmitter<Cliente> = new EventEmitter<Cliente>();
+  public onSelect: EventEmitter<Customer> = new EventEmitter<Customer>();
 
   public isVisible: boolean = true;
 
@@ -34,6 +34,16 @@ export class CardClienteComponent implements OnInit {
 
   toggle() {
     this.isVisible = !this.isVisible;
+  }
+
+  get totaleFattura(): number {
+    return this.cliente.invoices.length > 0 ? this.cliente.invoices
+      .map((item) => item.netAmount + item.ivaAmount)
+      .reduce((acc, item) => acc + item) : 0;
+  }
+
+  get numeroFatture(): number {
+    return this.cliente.invoices.length;
   }
 
 }
