@@ -6,6 +6,7 @@ import { ApiService } from '../services/api.service';
 import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-cliente',
@@ -19,12 +20,11 @@ export class ClienteComponent implements OnInit {
   public isVisible: boolean = false;
   public obs: Observable<string>;
   public formGroup: FormGroup;
-  constructor(private fb: FormBuilder, public clienteService: ClienteService, private router: Router) { }
+  public submit: boolean = false;
+  constructor(private fb: FormBuilder, private messageService: MessageService, public clienteService: ClienteService, private router: Router) { }
 
   ngOnInit() {
-    this.clienteService.getAll(true).subscribe((clienti) => {
-      this.clienti = clienti;
-    })
+    this.reload();
     this.formGroup = this.fb.group({
       name: ['', Validators.required],
       codeIva: ['', Validators.required],
@@ -32,6 +32,7 @@ export class ClienteComponent implements OnInit {
       city: [''],
       address: ['']
     })
+
 
     /* this.obs = new Observable((observer) => {
       setTimeout(() => {
@@ -61,13 +62,55 @@ export class ClienteComponent implements OnInit {
 
   }
 
+  reload() {
+    this.clienteService.getAll(true).subscribe((clienti) => {
+      this.clienti = clienti;
+    })
+  }
+  salva() {
+    this.submit = true;
+    if (this.formGroup.valid) {
+      const cliente: Customer = new Customer();
+      cliente.address = this.formGroup.value.address;
+      cliente.city = this.formGroup.value.city;
+      cliente.name = this.formGroup.value.name;
+      cliente.codeIva = this.formGroup.value.codeIva;
+      cliente.country = this.formGroup.value.country;
+      cliente.urlLogo = ' ';
+      this.clienteService.add(cliente).subscribe((value) => {
+        this.messageService.add(
+          {
+            severity: 'success',
+            summary: 'Messaggio',
+            detail: 'Inserimento avvenuto con successo'
+          });
+        this.isVisible = false;
+        this.reload();
+      })
+      console.log("Valore cliente:", cliente)
+
+    }
+
+  }
+
   open() {
     this.isVisible = true;
+    this.submit = false;
+    this.formGroup.reset();
   }
 
   delete(cliente: Customer) {
-    this.clienteService.delete(cliente);
-    //    this.clienti = this.clienteService.getAll();
+    this.clienteService.delete(cliente).subscribe((value) => {
+      this.messageService.add(
+        {
+          severity: 'success',
+          summary: 'Messaggio',
+          detail: 'Cliente eliminato con successo'
+        });
+      this.reload();
+
+    })
+
   }
 
   filtra(filtro: string) {

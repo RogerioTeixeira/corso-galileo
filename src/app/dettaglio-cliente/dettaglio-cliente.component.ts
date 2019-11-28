@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ClienteService } from '../services/cliente.service';
 import { Customer } from '../model/customer.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-dettaglio-cliente',
@@ -11,7 +12,7 @@ import { Customer } from '../model/customer.model';
 export class DettaglioClienteComponent implements OnInit {
   public cliente: Customer;
 
-  constructor(private activedRouter: ActivatedRoute, private clienteService: ClienteService) { }
+  constructor(private activedRouter: ActivatedRoute, private messageService: MessageService, private clienteService: ClienteService) { }
 
   ngOnInit() {
     this.clienteService.load();

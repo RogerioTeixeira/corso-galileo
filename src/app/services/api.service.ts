@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private readonly host = 'https://corso-angular-server.herokuapp.com'
+  private readonly host = environment.host_api;
   constructor(private http: HttpClient) { }
 
   public get<T>(path: string, params?: HttpParams): Observable<T> {

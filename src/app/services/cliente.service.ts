@@ -41,11 +41,11 @@ export class ClienteService {
     return this.clienti.filter((item: Customer) => item.name.toLowerCase().includes(filter.toLowerCase()));
   }
 
-  add(cliente: Customer): void {
-    this.clienti.push(cliente);
+  add(cliente: Customer): Observable<Customer> {
+    return this.api.post<Customer>('/customers', cliente);
   }
 
-  delete(cliente: Customer) {
-    this.clienti = this.clienti.filter((item: Customer) => item.codeIva != cliente.codeIva);
+  delete(cliente: Customer): Observable<any> {
+    return this.api.delete('/customers/' + cliente.id);
   }
 }
