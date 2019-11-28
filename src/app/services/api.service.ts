@@ -23,6 +23,12 @@ export class ApiService {
     })
   }
 
+  public patch<T>(path: string, body: any): Observable<T> {
+    return this.http.patch<T>(`${this.host}${path}`, body, {
+      headers: this.setHeader()
+    })
+  }
+
   private setHeader(): HttpHeaders {
     const header = new HttpHeaders();
     header.append('Content-Type', 'application/json')

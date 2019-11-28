@@ -7,11 +7,12 @@ import { ClienteComponent } from './cliente/cliente.component';
 import { FattureComponent } from './fatture/fatture.component';
 import { CardClienteComponent } from './card-cliente/card-cliente.component';
 import { LOCALE_ID } from '@angular/core';
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import localeIt from '@angular/common/locales/it';
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { DettaglioClienteComponent } from './dettaglio-cliente/dettaglio-cliente.component';
+import { ContainerComponent } from './container/container.component';
 registerLocaleData(localeIt, 'it-IT');
 
 @NgModule({
@@ -21,12 +22,14 @@ registerLocaleData(localeIt, 'it-IT');
     FattureComponent,
     CardClienteComponent,
     DettaglioClienteComponent,
+    ContainerComponent,
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [

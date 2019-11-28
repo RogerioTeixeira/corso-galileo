@@ -1,1 +1,9 @@
-<p>fatture works!</p>
+<div>
+  <form [formGroup]="form">
+    <div class="form-group">
+      <input type="text" name="name" formControlName="name" />
+    </div>
+    <p>name:{{form.get('name').errors|json}}</p>
+
+  </form>
+</div>
