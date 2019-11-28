@@ -67,29 +67,17 @@ export class ClienteComponent implements OnInit {
       this.clienti = clienti;
     })
   }
-  salva() {
-    this.submit = true;
-    if (this.formGroup.valid) {
-      const cliente: Customer = new Customer();
-      cliente.address = this.formGroup.value.address;
-      cliente.city = this.formGroup.value.city;
-      cliente.name = this.formGroup.value.name;
-      cliente.codeIva = this.formGroup.value.codeIva;
-      cliente.country = this.formGroup.value.country;
-      cliente.urlLogo = ' ';
-      this.clienteService.add(cliente).subscribe((value) => {
-        this.messageService.add(
-          {
-            severity: 'success',
-            summary: 'Messaggio',
-            detail: 'Inserimento avvenuto con successo'
-          });
-        this.isVisible = false;
-        this.reload();
-      })
-      console.log("Valore cliente:", cliente)
-
-    }
+  salva(cliente: Customer) {
+    this.clienteService.add(cliente).subscribe((value) => {
+      this.messageService.add(
+        {
+          severity: 'success',
+          summary: 'Messaggio',
+          detail: 'Inserimento avvenuto con successo'
+        });
+      this.isVisible = false;
+      this.reload();
+    })
 
   }
 
@@ -114,7 +102,10 @@ export class ClienteComponent implements OnInit {
   }
 
   filtra(filtro: string) {
-    this.clienti = this.clienteService.filterLike(filtro);
+    this.clienteService.filterLike(filtro).subscribe((clienti) => {
+      this.clienti = clienti;
+    })
+    // this.clienti = this.clienteService.filterLike(filtro);
   }
 
   select(cliente: Customer) {

@@ -1,8 +1,17 @@
+<p-dialog [(visible)]="isVisible" [modal]="true" [style]="{width: '700px'}">
+  <p-header>
+    Nuovo Cliente
+  </p-header>
+  <app-form-cliente *ngIf="cliente" [cliente]="cliente" (onUpdate)="salva($event)"></app-form-cliente>
+</p-dialog>
 <div class="row mt-3" *ngIf="cliente">
 
   <div class="col-4">
     <div class="card shadow">
       <div class="card-body">
+        <div class="d-flex py-2">
+          <button class="btn btn-primary ml-auto" (click)="open()">Modifica</button>
+        </div>
         <div class="row">
           <div class="col-12">
             <img [src]="cliente.urlLogo" class="img-fluid img-thumbnail" />

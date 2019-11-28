@@ -37,12 +37,20 @@ export class ClienteService {
     return clienti[0];
   }
 
-  filterLike(filter: string): Customer[] {
-    return this.clienti.filter((item: Customer) => item.name.toLowerCase().includes(filter.toLowerCase()));
+  filterLike(filter: string): Observable<Customer[]> {
+    const params: HttpParams = new HttpParams()
+      .append("name_like", filter)
+      .append("_embed", "invoices");
+    return this.api.get<Customer[]>('/customers', params)
+
   }
 
   add(cliente: Customer): Observable<Customer> {
     return this.api.post<Customer>('/customers', cliente);
+  }
+
+  update(cliente: Customer): Observable<Customer> {
+    return this.api.patch<Customer>('/customers/' + cliente.id, cliente);
   }
 
   delete(cliente: Customer): Observable<any> {

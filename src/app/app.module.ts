@@ -17,6 +17,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
+import { FormClienteComponent } from './shared/form-cliente/form-cliente.component';
+import { DataViewModule } from 'primeng/dataview';
 
 registerLocaleData(localeIt, 'it-IT');
 
@@ -28,6 +30,7 @@ registerLocaleData(localeIt, 'it-IT');
     CardClienteComponent,
     DettaglioClienteComponent,
     ContainerComponent,
+    FormClienteComponent,
 
   ],
   imports: [
@@ -38,7 +41,8 @@ registerLocaleData(localeIt, 'it-IT');
     ReactiveFormsModule,
     HttpClientModule,
     ToastModule,
-    DialogModule
+    DialogModule,
+    DataViewModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'it-IT' },

@@ -2,37 +2,7 @@
   <p-header>
     Nuovo Cliente
   </p-header>
-  <form [formGroup]="formGroup">
-    <div class="form-group">
-      <label for="denominazione">Denominazione</label>
-      <input type="text" class="form-control" id="denominazione" formControlName="name">
-      <small *ngIf="!formGroup.get('name').valid && submit" id="emailHelp" class="form-text text-danger">Denominazione
-        obbligatoria</small>
-    </div>
-    <div class="form-group">
-      <label for="piva">Partita Iva</label>
-      <input type="text" class="form-control" id="piva" formControlName="codeIva">
-      <small *ngIf="!formGroup.get('codeIva').valid && submit" id="emailHelp" class="form-text text-danger">Partita iva
-        obbligatoria</small>
-    </div>
-    <div class="form-group">
-      <label for="paese">Paese</label>
-      <input type="text" class="form-control" id="paese" formControlName="country">
-      <small *ngIf="!formGroup.get('country').valid && submit" id="emailHelp" class="form-text text-danger">Paese
-        obbligatorio</small>
-    </div>
-    <div class="form-group">
-      <label for="citta">Città</label>
-      <input type="text" class="form-control" id="citta" formControlName="city">
-    </div>
-    <div class="form-group">
-      <label for="indirizzo">Indirizzo</label>
-      <input type="text" class="form-control" id="indirizzo" formControlName="address">
-    </div>
-  </form>
-  <p-footer>
-    <button class="btn btn-primary" (click)="salva()">Salva</button>
-  </p-footer>
+  <app-form-cliente (onInsert)="salva($event)"></app-form-cliente>
 </p-dialog>
 <div class="row">
   <div class="col-8">
@@ -48,7 +18,20 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-4 mt-2" *ngFor="let cliente of clienti">
+  <!--  <div class="col-4 mt-2" *ngFor="let cliente of clienti">
     <app-card-cliente [cliente]="cliente" (onDelete)="delete($event)" (onSelect)="select($event)"></app-card-cliente>
+  </div> -->
+  <div class="col-12 h-100" *ngIf="clienti">
+    <p-dataView [value]="clienti" [paginator]="true" [rows]="2" layout="grid" paginatorPosition="top">
+      <p-header>
+        Clienti
+      </p-header>
+      <ng-template let-cliente pTemplate="gridItem">
+        <div class="col-4 my-2">
+          <app-card-cliente [cliente]="cliente" (onDelete)="delete($event)" (onSelect)="select($event)">
+          </app-card-cliente>
+        </div>
+      </ng-template>
+    </p-dataView>
   </div>
 </div>

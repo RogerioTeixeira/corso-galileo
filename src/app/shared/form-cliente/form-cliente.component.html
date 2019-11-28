@@ -1,0 +1,31 @@
+<form [formGroup]="formGroup">
+  <div class="form-group">
+    <label for="denominazione">Denominazione</label>
+    <input type="text" class="form-control" id="denominazione" formControlName="name">
+    <small *ngIf="!formGroup.get('name').valid && submit" id="emailHelp" class="form-text text-danger">Denominazione
+      obbligatoria</small>
+  </div>
+  <div class="form-group">
+    <label for="piva">Partita Iva</label>
+    <input type="text" class="form-control" id="piva" formControlName="codeIva">
+    <small *ngIf="!formGroup.get('codeIva').valid && submit" id="emailHelp" class="form-text text-danger">Partita iva
+      obbligatoria</small>
+  </div>
+  <div class="form-group">
+    <label for="paese">Paese</label>
+    <input type="text" class="form-control" id="paese" formControlName="country">
+    <small *ngIf="!formGroup.get('country').valid && submit" id="emailHelp" class="form-text text-danger">Paese
+      obbligatorio</small>
+  </div>
+  <div class="form-group">
+    <label for="citta">Città</label>
+    <input type="text" class="form-control" id="citta" formControlName="city">
+  </div>
+  <div class="form-group">
+    <label for="indirizzo">Indirizzo</label>
+    <input type="text" class="form-control" id="indirizzo" formControlName="address">
+  </div>
+  <div class="d-flex">
+    <button class="btn btn-primary ml-auto" (click)="salva()">Salva</button>
+  </div>
+</form>
