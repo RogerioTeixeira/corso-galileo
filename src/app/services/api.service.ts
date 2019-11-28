@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   public get<T>(path: string, params?: HttpParams): Observable<T> {
-    return this.http.get<T>(`${this.host}${path}`, { params: params });
+    return this.http.get<T>(`${this.host}${path}`, { params: params })
+      .pipe(retry(2), catchError(this.errorHandler));
   }
 
   public delete<T>(path: string, params?: HttpParams): Observable<T> {
@@ -33,5 +35,8 @@ export class ApiService {
     const header = new HttpHeaders();
     header.append('Content-Type', 'application/json')
     return header;
+  }
+  private errorHandler(error: HttpErrorResponse) {
+    return throwError(error)
   }
 }

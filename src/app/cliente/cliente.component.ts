@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
 import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-cliente',
@@ -15,12 +16,21 @@ export class ClienteComponent implements OnInit {
   public clienti: Array<Customer> = new Array<Customer>();
   public filter: string;
   public cliente: any;
+  public isVisible: boolean = false;
   public obs: Observable<string>;
-  constructor(public clienteService: ClienteService, private router: Router) { }
+  public formGroup: FormGroup;
+  constructor(private fb: FormBuilder, public clienteService: ClienteService, private router: Router) { }
 
   ngOnInit() {
     this.clienteService.getAll(true).subscribe((clienti) => {
       this.clienti = clienti;
+    })
+    this.formGroup = this.fb.group({
+      name: ['', Validators.required],
+      codeIva: ['', Validators.required],
+      country: ['', Validators.required],
+      city: [''],
+      address: ['']
     })
 
     /* this.obs = new Observable((observer) => {
@@ -49,6 +59,10 @@ export class ClienteComponent implements OnInit {
     } */
 
 
+  }
+
+  open() {
+    this.isVisible = true;
   }
 
   delete(cliente: Customer) {

@@ -13,6 +13,11 @@ import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { DettaglioClienteComponent } from './dettaglio-cliente/dettaglio-cliente.component';
 import { ContainerComponent } from './container/container.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { DialogModule } from 'primeng/dialog';
+
 registerLocaleData(localeIt, 'it-IT');
 
 @NgModule({
@@ -27,13 +32,17 @@ registerLocaleData(localeIt, 'it-IT');
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastModule,
+    DialogModule
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'it-IT' }
+    { provide: LOCALE_ID, useValue: 'it-IT' },
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

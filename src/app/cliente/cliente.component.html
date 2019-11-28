@@ -1,11 +1,47 @@
+<p-dialog [(visible)]="isVisible" [modal]="true" [style]="{width: '700px'}">
+  <p-header>
+    Nuovo Cliente
+  </p-header>
+  <form [formGroup]="formGroup">
+    <div class="form-group">
+      <label for="denominazione">Denominazione</label>
+      <input type="text" class="form-control" id="denominazione" formControlName="name">
+      <small id="emailHelp" class="form-text  text-danger">We'll never share your email with anyone
+        else.</small>
+    </div>
+    <div class="form-group">
+      <label for="piva">Partita Iva</label>
+      <input type="text" class="form-control" id="piva" formControlName="codeIva">
+    </div>
+    <div class="form-group">
+      <label for="paese">Paese</label>
+      <input type="text" class="form-control" id="paese" formControlName="country">
+    </div>
+    <div class="form-group">
+      <label for="citta">Città</label>
+      <input type="text" class="form-control" id="citta" formControlName="city">
+    </div>
+    <div class="form-group">
+      <label for="indirizzo">Indirizzo</label>
+      <input type="text" class="form-control" id="indirizzo" formControlName="address">
+    </div>
+  </form>
+  <p>form:{{formGroup.value|json}}</p>
+  <p-footer>
+    <button class="btn btn-primary">Salva</button>
+  </p-footer>
+</p-dialog>
 <div class="row">
-  <div class="col-10">
+  <div class="col-8">
     <form>
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Ricerca" name="filter" (ngModelChange)="filtra($event)"
           [(ngModel)]="filter" />
       </div>
     </form>
+  </div>
+  <div class="col-1">
+    <button class="btn btn-primary" (click)="open()">Aggiungi</button>
   </div>
 </div>
 <div class="row">
